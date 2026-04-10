@@ -18,4 +18,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ubuntu/fantools
+            # 确保有足够的权限
+            sudo chown -R $USER:$USER .
             git pull origin master
