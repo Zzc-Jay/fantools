@@ -1465,7 +1465,7 @@ function generateQRCode(data) {
   for(let i=0;i<4&&dataBits.length<272;i++) dataBits.push(0);
   // Pad to byte boundary
   while(dataBits.length%8) dataBits.push(0);
-  // Pad codewords
+  // Pad codewords  
   const padBytes = [0xEC, 0x11];
   let pi = 0;
   while(dataBits.length < 272) { const pb=padBytes[pi%2]; for(let i=7;i>=0;i--) dataBits.push((pb>>i)&1); pi++; }
