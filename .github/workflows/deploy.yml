@@ -17,7 +17,27 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/ubuntu/fantools
-            # 确保有足够的权限
-            sudo chown -R $USER:$USER .
-            git pull origin master
+            # 检查目录结构
+            ls -la /home/ubuntu/
+            
+            # 确保 fantools 目录存在
+            if [ ! -d "/home/ubuntu/fantools" ]; then
+              echo "Creating fantools directory..."
+              mkdir -p /home/ubuntu/fantools
+              cd /home/ubuntu/fantools
+              git clone https://github.com/Zzc-Jay/fantools .
+            else
+              cd /home/ubuntu/fantools
+              # 确保有足够的权限
+              sudo chown -R $USER:$USER .
+              git pull origin master
+            fi
+            
+            # 检查文件是否存在
+            ls -la
+            
+            # 检查 Nginx 配置
+            if [ -f "/etc/nginx/sites-available/default" ]; then
+              echo "Nginx config exists:"
+              grep -A 10 -B 5 "fantools" /etc/nginx/sites-available/default
+            fi
