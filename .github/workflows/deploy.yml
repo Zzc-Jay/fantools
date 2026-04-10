@@ -2,7 +2,7 @@ name: Deploy to VPS
 
 on:
   push:
-    branches: [ main ]   # 改成你的默认分支
+    branches: [ master ]   # 改成你的默认分支
 
 jobs:
   deploy:
@@ -17,9 +17,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/ubuntu/streamlit-my-first-app
-            git pull origin main
-            source ./one/venv/bin/activate
-            pip install -r ./one/requirements.txt --quiet
-            sudo systemctl restart streamlit.service
-            echo "部署完成，Streamlit 服务已重启"
+            cd /home/ubuntu/fantools
+            git pull origin master
